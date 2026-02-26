@@ -1,0 +1,312 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Canada Embassy Ghana · Live Paystack (GHS)</title>
+  <!-- separate styles.css linked -->
+  <link rel="stylesheet" href="styles.css">
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Google Font: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <!-- Paystack inline script (REAL) -->
+  <script src="https://js.paystack.co/v1/inline.js"></script>
+</head>
+<body>
+  <!-- header with Canada flag colors -->
+  <header class="site-header">
+    <div class="container header-flex">
+      <div class="logo-area">
+        <i class="fas fa-maple-leaf" aria-hidden="true"></i>
+        <span class="logo-text">CANADA<span class="thin">·EMBASSY</span></span>
+      </div>
+      <div class="ghana-tag">
+        <span>Accra — Ghana</span>
+        <i class="fas fa-chevron-down"></i>
+      </div>
+    </div>
+  </header>
+
+  <!-- hero -->
+  <section class="hero-section">
+    <div class="container hero-grid">
+      <div class="hero-left">
+        <h1>Official <span class="nowrap">consular services</span> <br>in Ghana cedis (GHS)</h1>
+        <p class="hero-sub">Secure, verified documents & immigration services. Payment via Paystack (live).</p>
+        <div class="trust-badges">
+          <span><i class="fas fa-check-circle"></i> High‑Commission approved</span>
+          <span><i class="fas fa-lock"></i> encrypted & safe</span>
+        </div>
+      </div>
+      <div class="hero-right">
+        <img src="https://placehold.co/500x300/EEE/31343C?text=🍁+Canadian+Flag&font=open-sans" alt="Canada flag" class="flag-placeholder">
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN APPLICATION FORM – REAL PAYSTACK INTEGRATION -->
+  <section class="form-section">
+    <div class="container">
+      <div class="form-card">
+        <div class="form-header">
+          <h2><i class="fas fa-file-invoice"></i> Request certificate / visa service</h2>
+          <p class="form-note">All fees are displayed in <strong>Ghana cedis (GHS)</strong>. <span class="live-tag">🔴 LIVE PAYMENT</span></p>
+        </div>
+
+        <form id="embassyRequestForm">
+          <!-- two column layout -->
+          <div class="form-row two-cols">
+            <div class="input-group">
+              <label for="fullname"><i class="fas fa-user"></i> Full name (as on passport)</label>
+              <input type="text" id="fullname" name="fullname" placeholder="" required>
+            </div>
+            <div class="input-group">
+              <label for="email"><i class="fas fa-envelope"></i> Email address</label>
+              <input type="email" id="email" name="email" placeholder="" required>
+            </div>
+          </div>
+
+          <div class="form-row two-cols">
+            <div class="input-group">
+              <label for="phone"><i class="fas fa-phone-alt"></i> Phone (Ghana)</label>
+              <input type="tel" id="phone" name="phone" placeholder="" required>
+            </div>
+            <div class="input-group">
+              <label for="dob"><i class="fas fa-calendar"></i> Date of birth</label>
+              <input type="date" id="dob" name="dob" required>
+            </div>
+          </div>
+
+          <!-- service checkboxes with real prices GHS -->
+          <div class="form-row">
+            <div class="input-group full-width">
+              <label><i class="fas fa-briefcase"></i> Select service(s) – GHS prices</label>
+              <div class="checkbox-group">
+                <label class="checkbox-item">
+                  <input type="checkbox" name="service" value="embassy_verification" data-price="350"> 
+                  <span class="service-name">Embassy verification code</span>
+                  <span class="service-price">GHS 930</span>
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" name="service" value="birth_certificate" data-price="320"> 
+                  <span class="service-name">Birth certificate</span>
+                  <span class="service-price">GHS 320</span>
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" name="service" value="passport" data-price="850"> 
+                  <span class="service-name">Passport (standard)</span>
+                  <span class="service-price">GHS 850</span>
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" name="service" value="visa" data-price="2000"> 
+                  <span class="service-name">Visa (multiple entry)</span>
+                  <span class="service-price">GHS 2,000</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- additional details -->
+          <div class="form-row two-cols">
+            <div class="input-group">
+              <label for="passportNumber"><i class="fas fa-passport"></i> Passport number (if available)</label>
+              <input type="text" id="passportNumber" name="passportNumber" placeholder="GA123456">
+            </div>
+            <div class="input-group">
+              <label for="nationality"><i class="fas fa-flag"></i> Nationality</label>
+              <select id="nationality" name="nationality">
+                <option value="Ghanaian">Ghanaian</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- total + paystack badge -->
+          <div class="total-panel">
+            <div class="total-left">
+              <span class="total-label">Total (GHS):</span>
+              <span class="total-amount" id="totalAmount">0.00</span>
+            </div>
+            <div class="total-right">
+              <i class="fas fa-shield-alt"></i> Paystack secure
+            </div>
+          </div>
+
+          <!-- REAL PAYSTACK BUTTON (triggers live payment) -->
+          <div class="form-action">
+            <button type="button" id="payWithPaystackBtn" class="pay-btn">
+              <i class="fas fa-lock"></i> Pay with Paystack  <span class="btn-ghs">GHS <span id="btnTotal">0</span></span>
+            </button>
+            <p class="disclaimer">You'll be redirected to Paystack to complete payment.<br>All transactions are in Ghana cedis.</p>
+          </div>
+        </form>
+      </div>
+
+      <!-- info panel -->
+      <div class="info-panel">
+        <div class="info-box">
+          <i class="fas fa-map-pin"></i>
+          <span>Canadian Embassy, Accra – 42 Independence Ave.</span>
+        </div>
+        <div class="info-box">
+          <i class="fas fa-clock"></i>
+          <span>Processing: 3–5 working days after payment</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- footer -->
+  <footer>
+    <div class="container footer-content">
+      <p><i class="fas fa-maple-leaf"></i> Official representative of Canada in Ghana · Service fees include consular charges</p>
+      <p class="footer-small">Live Paystack integration — replace with your live public key for production.</p>
+    </div>
+  </footer>
+
+  <!-- Real Paystack integration JavaScript (ready for your live key) -->
+  <script>
+    (function() {
+      // ================== YOUR LIVE PAYSTACK PUBLIC KEY ==================
+      // 🔴 IMPORTANT: Replace this test key with your LIVE public key from Paystack dashboard
+      // Example live key format: pk_live_8a7b6c5d4e3f2g1h0i9j8k7l6m5n4o3p2q1r0s
+      const PAYSTACK_PUBLIC_KEY = 'pk_live_322e5d5775eb0e9ad30e1ab3aa81ae5949c62127'; // ← REPLACE THIS WITH YOUR LIVE KEY
+      
+      // Get DOM elements
+      const checkboxes = document.querySelectorAll('input[name="service"]');
+      const totalSpan = document.getElementById('totalAmount');
+      const btnTotalSpan = document.getElementById('btnTotal');
+      const fullnameInput = document.getElementById('fullname');
+      const emailInput = document.getElementById('email');
+      const phoneInput = document.getElementById('phone');
+      const dobInput = document.getElementById('dob');
+      const passportInput = document.getElementById('passportNumber');
+      const nationalitySelect = document.getElementById('nationality');
+
+      // update total
+      function updateTotal() {
+        let total = 0;
+        checkboxes.forEach(cb => {
+          if (cb.checked) {
+            total += Number(cb.getAttribute('data-price'));
+          }
+        });
+        totalSpan.textContent = total.toFixed(2);
+        btnTotalSpan.textContent = total.toFixed(2);
+      }
+      checkboxes.forEach(cb => cb.addEventListener('change', updateTotal));
+      updateTotal();
+
+      // ----- REAL PAYSTACK PAYMENT HANDLER -----
+      document.getElementById('payWithPaystackBtn').addEventListener('click', function() {
+        // calculate total (in GHS)
+        let totalGHS = 0;
+        checkboxes.forEach(cb => {
+          if (cb.checked) {
+            totalGHS += Number(cb.getAttribute('data-price'));
+          }
+        });
+
+        if (totalGHS === 0) {
+          alert('Please select at least one service.');
+          return;
+        }
+
+        // Get customer details
+        const fullname = fullnameInput.value.trim();
+        const email = emailInput.value.trim();
+        const phone = phoneInput.value.trim();
+        const dob = dobInput.value;
+        const passport = passportInput.value.trim();
+        const nationality = nationalitySelect.value;
+
+        if (!fullname) {
+          alert('Please enter your full name.');
+          fullnameInput.focus();
+          return;
+        }
+        if (!email) {
+          alert('Please enter your email address.');
+          emailInput.focus();
+          return;
+        }
+        if (!phone) {
+          alert('Please enter your phone number.');
+          phoneInput.focus();
+          return;
+        }
+        if (!dob) {
+          alert('Please select your date of birth.');
+          dobInput.focus();
+          return;
+        }
+
+        // Paystack amount is in pesewas (GHS * 100)
+        const amountInPesewas = totalGHS * 100;
+
+        // Build metadata – this will appear in your Paystack dashboard
+        const metadata = {
+          custom_fields: [
+            {
+              display_name: "Full Name",
+              variable_name: "full_name",
+              value: fullname
+            },
+            {
+              display_name: "Phone",
+              variable_name: "phone",
+              value: phone
+            },
+            {
+              display_name: "Date of Birth",
+              variable_name: "dob",
+              value: dob
+            },
+            {
+              display_name: "Passport",
+              variable_name: "passport",
+              value: passport || "Not provided"
+            },
+            {
+              display_name: "Nationality",
+              variable_name: "nationality",
+              value: nationality
+            }
+          ],
+          services_selected: Array.from(checkboxes).filter(cb => cb.checked).map(cb => cb.value).join(', ')
+        };
+
+        // Generate unique reference (optional but recommended)
+        const reference = 'CAN-' + Date.now() + '-' + Math.floor(Math.random() * 1000000);
+
+        // Initialize Paystack
+        const handler = PaystackPop.setup({
+          key: PAYSTACK_PUBLIC_KEY,    // Your live public key goes here
+          email: email,
+          amount: amountInPesewas,
+          currency: 'GHS',              // Ghana Cedis
+          ref: reference,
+          metadata: metadata,
+          // You can restrict payment methods if you want:
+          // channels: ['card', 'mobile_money', 'bank'],
+          callback: function(response) {
+            // Successful payment – transaction reference: response.reference
+            alert(`🎉 Payment successful! Reference: ${response.reference}\nThank you. Your application is now being processed.`);
+            // Here you can redirect to a thank you page or send data to your server
+            console.log('Paystack success:', response);
+            // Optionally reset form or disable button
+          },
+          onClose: function() {
+            alert('Payment window closed. You have not completed the payment.');
+          }
+        });
+
+        // Open the payment dialog
+        handler.openIframe();
+      });
+    })();
+  </script>
+</body>
+</html>
